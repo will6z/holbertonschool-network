@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Check if an argument has passed
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 {IP_ADDRESS}"
+  exit 1
+fi
+
