@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Add or modify localhost entry to resolve to 127.0.0.2
+if grep -q "127.0.0.2" /etc/hosts; then
+  echo "localhost is already set to 127.0.0.2"
+else
+  sudo sed -i '/localhost/d' /etc/hosts
+  echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts
+  echo "Set localhost to resolve to 127.0.0.2"
+fi
+
+# Add or modify facebook.com entry to resolve to 8.8.8.8
+if grep -q "8.8.8.8 facebook.com" /etc/hosts; then
+  echo "facebook.com is already set to 8.8.8.8"
+else
+  sudo sed -i '/facebook.com/d' /etc/hosts
+  echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts
+  echo "Set facebook.com to resolve to 8.8.8.8"
+fi
+
