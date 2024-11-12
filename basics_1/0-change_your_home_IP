@@ -1,21 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Script configures localhost and facebook.com IP addresses
 
-# Check if the script is run as root
-if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root. Use sudo."
-  exit 1
-fi
+# Verifies if it is running as the root
+sudo cp /etc/hosts /etc/hosts.bak
 
-# Backup the current /etc/hosts file
-cp /etc/hosts /etc/hosts.bak
+sudo sed -i '/127.0.0.1\s*localhost/d' /etc/hosts
+sudo sed -i '/facebook.com/d' /etc/hosts
 
-# Update the /etc/hosts file
-# Replace 'localhost' IP and add 'facebook.com' entry
-echo "127.0.0.2 localhost" > /etc/hosts
-echo "8.8.8.8 facebook.com" >> /etc/hosts
+echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts > /dev/null
+echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts > /dev/null
 
-# Display a message to indicate completion
-echo "The /etc/hosts file has been updated successfully."
-
-# To check the changes, you can run: ping localhost and ping facebook.com
-
+echo "Host resolution updated: localhost -> 127.0.0.2, facebook.com -> 8.8.8.8"
